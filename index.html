@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBSIDIAN — Cut Through the Dark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E0E10;
+    --ink-2:#19191C;
+    --paper:#F5F3EE;
+    --paper-dim:#C9C6BC;
+    --accent:#FF4D2E;
+    --accent-dim:#7a2415;
+    --line: rgba(245,243,238,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Archivo',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--accent);color:var(--ink);}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(14,14,16,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 0;
+  }
+  .logo{
+    font-family:'Archivo Black',sans-serif;
+    font-size:24px;
+    letter-spacing:-0.5px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo .dot{color:var(--accent);}
+  .nav-links{
+    display:flex;
+    gap:32px;
+    align-items:center;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .nav-links a{text-decoration:none;opacity:0.85;transition:opacity .15s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--accent);
+    color:var(--ink);
+    padding:10px 18px;
+    border-radius:2px;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .nav-cta:hover{background:#ff6644;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:90px 0 70px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    margin-bottom:18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:'';
+    width:24px;height:2px;
+    background:var(--accent);
+    display:inline-block;
+  }
+  .hero h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(48px,9vw,108px);
+    line-height:0.92;
+    letter-spacing:-2px;
+    margin:0 0 28px;
+    text-transform:uppercase;
+  }
+  .hero h1 .stamp{
+    color:var(--ink);
+    -webkit-text-stroke:2px var(--paper);
+  }
+  .hero h1 .accent{color:var(--accent);}
+  .hero-sub{
+    font-size:19px;
+    line-height:1.6;
+    color:var(--paper-dim);
+    max-width:560px;
+    margin:0 0 36px;
+  }
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--accent);
+    color:var(--ink);
+    padding:16px 30px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:14px;
+    border:none;
+    border-radius:2px;
+    cursor:pointer;
+    font-family:inherit;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:#ff6644;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--paper);
+    padding:16px 30px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    font-size:14px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    cursor:pointer;
+    font-family:inherit;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn-ghost:hover{border-color:var(--paper);}
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    margin-bottom:8px;
+  }
+  .section-title{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(32px,4vw,48px);
+    text-transform:uppercase;
+    letter-spacing:-1px;
+    margin:0 0 40px;
+  }
+
+  /* ---------- POSTS ---------- */
+  .posts-section{padding:80px 0;border-bottom:1px solid var(--line);}
+  .posts-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:40px;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .filter-row{display:flex;gap:10px;flex-wrap:wrap;}
+  .filter-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--paper-dim);
+    padding:8px 16px;
+    border-radius:2px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    cursor:pointer;
+    transition:all .15s;
+  }
+  .filter-btn:hover{color:var(--paper);border-color:var(--paper-dim);}
+  .filter-btn.active{background:var(--paper);color:var(--ink);border-color:var(--paper);}
+
+  .post-list{display:flex;flex-direction:column;}
+  .post-row{
+    display:grid;
+    grid-template-columns:120px 1fr auto;
+    gap:28px;
+    align-items:start;
+    padding:32px 0;
+    border-top:1px solid var(--line);
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+    transition:background .15s;
+  }
+  .post-row:hover{background:var(--ink-2);}
+  .post-row:hover .post-title{color:var(--accent);}
+  .post-row:last-child{border-bottom:1px solid var(--line);}
+  .post-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    color:var(--accent);
+    padding-top:6px;
+  }
+  .post-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--paper-dim);
+    display:block;
+    margin-bottom:10px;
+  }
+  .post-title{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(22px,3vw,30px);
+    text-transform:uppercase;
+    letter-spacing:-0.5px;
+    line-height:1.1;
+    margin:0 0 10px;
+    transition:color .15s;
+  }
+  .post-excerpt{
+    color:var(--paper-dim);
+    font-size:15px;
+    line-height:1.6;
+    max-width:600px;
+    margin:0;
+  }
+  .post-meta{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--paper-dim);
+    padding-top:8px;
+    text-align:right;
+    white-space:nowrap;
+  }
+  .post-actions{display:flex;gap:8px;margin-top:10px;justify-content:flex-end;}
+  .icon-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--paper-dim);
+    width:30px;height:30px;
+    border-radius:2px;
+    cursor:pointer;
+    font-size:13px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .empty-state{
+    padding:60px 0;
+    text-align:center;
+    color:var(--paper-dim);
+    border-top:1px solid var(--line);
+  }
+  .empty-state .btn-primary{margin-top:20px;}
+
+  /* ---------- ABOUT / MANIFESTO ---------- */
+  .manifesto{padding:80px 0;border-bottom:1px solid var(--line);}
+  .manifesto-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:60px;
+  }
+  .manifesto-text p{
+    font-size:17px;
+    line-height:1.7;
+    color:var(--paper-dim);
+    margin:0 0 20px;
+  }
+  .manifesto-text strong{color:var(--paper);}
+  .stat-block{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-content:start;}
+  .stat{border-left:2px solid var(--accent);padding-left:18px;}
+  .stat-num{
+    font-family:'Archivo Black',sans-serif;
+    font-size:40px;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .stat-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--paper-dim);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:50px 0;}
+  .footer-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-note{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:var(--paper-dim);
+  }
+
+  /* ---------- READER VIEW ---------- */
+  .reader{
+    display:none;
+    padding:60px 0 100px;
+  }
+  .reader.active{display:block;}
+  .reader-back{
+    background:none;border:none;color:var(--paper-dim);
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;cursor:pointer;
+    margin-bottom:30px;
+    display:flex;align-items:center;gap:8px;
+    padding:0;
+  }
+  .reader-back:hover{color:var(--accent);}
+  .reader article{max-width:720px;}
+  .reader-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;color:var(--accent);
+    text-transform:uppercase;letter-spacing:0.08em;
+    margin-bottom:16px;display:block;
+  }
+  .reader h1{
+    font-family:'Archivo Black',sans-serif;
+    font-size:clamp(34px,6vw,58px);
+    text-transform:uppercase;
+    letter-spacing:-1.5px;
+    line-height:0.98;
+    margin:0 0 20px;
+  }
+  .reader-meta{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;color:var(--paper-dim);
+    margin-bottom:40px;
+    padding-bottom:30px;
+    border-bottom:1px solid var(--line);
+  }
+  .reader-body{font-size:18px;line-height:1.8;color:var(--paper);}
+  .reader-body p{margin:0 0 24px;}
+  .reader-body p:first-of-type::first-letter{
+    font-family:'Archivo Black',sans-serif;
+    font-size:62px;
+    float:left;
+    line-height:0.8;
+    padding:6px 10px 0 0;
+    color:var(--accent);
+  }
+
+  /* ---------- EDITOR MODAL ---------- */
+  .modal-overlay{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(14,14,16,0.85);
+    backdrop-filter:blur(4px);
+    z-index:100;
+    align-items:flex-start;
+    justify-content:center;
+    overflow-y:auto;
+    padding:40px 20px;
+  }
+  .modal-overlay.active{display:flex;}
+  .modal{
+    background:var(--ink-2);
+    border:1px solid var(--line);
+    border-radius:4px;
+    max-width:680px;
+    width:100%;
+    padding:36px;
+  }
+  .modal h2{
+    font-family:'Archivo Black',sans-serif;
+    text-transform:uppercase;
+    font-size:24px;
+    margin:0 0 24px;
+    letter-spacing:-0.5px;
+  }
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--paper-dim);
+    margin-bottom:8px;
+  }
+  .field input, .field textarea, .field select{
+    width:100%;
+    background:var(--ink);
+    border:1px solid var(--line);
+    color:var(--paper);
+    padding:12px 14px;
+    font-family:'Archivo',sans-serif;
+    font-size:15px;
+    border-radius:2px;
+    resize:vertical;
+  }
+  .field textarea{min-height:220px;line-height:1.6;}
+  .field input:focus, .field textarea:focus, .field select:focus{
+    outline:none;border-color:var(--accent);
+  }
+  .field-hint{
+    font-size:12px;color:var(--paper-dim);margin-top:6px;
+  }
+  .modal-actions{
+    display:flex;gap:12px;justify-content:flex-end;margin-top:28px;
+  }
+  .btn-cancel{
+    background:transparent;border:1px solid var(--line);
+    color:var(--paper-dim);
+    padding:14px 24px;
+    font-family:inherit;font-weight:700;font-size:14px;
+    text-transform:uppercase;letter-spacing:0.05em;
+    border-radius:2px;cursor:pointer;
+  }
+  .btn-cancel:hover{color:var(--paper);}
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .post-row{grid-template-columns:1fr;gap:10px;}
+    .post-num{padding-top:0;}
+    .post-meta{text-align:left;}
+    .post-actions{justify-content:flex-start;}
+    .manifesto-grid{grid-template-columns:1fr;gap:40px;}
+    .stat-block{grid-template-columns:1fr 1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo" onclick="showHome();return false;">OBSIDIAN<span class="dot">.</span></a>
+    <nav class="nav-links">
+      <a href="#" onclick="showHome();return false;">Posts</a>
+      <a href="#about" onclick="scrollToAbout();return false;">Manifesto</a>
+      <button class="nav-cta" onclick="openEditor()">+ New Post</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HOME VIEW ============ -->
+<div id="home-view">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-eyebrow">Motivation &amp; Psychology, No Fluff</div>
+      <h1>STOP WAITING<br>FOR <span class="accent">MOTIVATION.</span><br><span class="stamp">BUILD</span> IT.</h1>
+      <p class="hero-sub">Real psychology, zero filler. Every post here exists to move you from knowing to doing — discipline systems, mindset shifts, and the science of why your brain fights change.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="scrollToPosts();return false;">Read the Posts</a>
+        <a href="#" class="btn-ghost" onclick="openEditor();return false;">Write a Post</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="posts-section" id="posts">
+    <div class="wrap">
+      <div class="posts-head">
+        <div>
+          <div class="section-label">The Archive</div>
+          <h2 class="section-title">Latest Drops</h2>
+        </div>
+        <div class="filter-row" id="filter-row"></div>
+      </div>
+      <div class="post-list" id="post-list"></div>
+    </div>
+  </section>
+
+  <section class="manifesto" id="about">
+    <div class="wrap manifesto-grid">
+      <div class="manifesto-text">
+        <div class="section-label">The Manifesto</div>
+        <h2 class="section-title">Why Obsidian Exists</h2>
+        <p><strong>Most motivational content is sugar.</strong> It spikes you for ten minutes and leaves you exactly where you started. OBSIDIAN is built different — every post is grounded in real psychology, then translated into something you can actually use today.</p>
+        <p>No vague affirmations. No "just believe in yourself." We break down <strong>why your brain resists change</strong>, then hand you the exact lever to pull against it.</p>
+        <p>This is a blog for people who are done waiting to feel ready.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat"><div class="stat-num">0</div><div class="stat-label">Days of Excuses Left</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Science-Backed</div></div>
+        <div class="stat"><div class="stat-num">1</div><div class="stat-label">Version of You, Upgraded</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Reps Until It's Automatic</div></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ============ READER VIEW ============ -->
+<div class="reader" id="reader-view">
+  <div class="wrap">
+    <button class="reader-back" onclick="showHome()">&larr; Back to all posts</button>
+    <article id="reader-article"></article>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-row">
+    <a href="#" class="logo" onclick="showHome();return false;" style="font-size:18px;">OBSIDIAN<span class="dot">.</span></a>
+    <div class="footer-note">Posts are saved in this browser. Use Export to back them up.</div>
+    <div class="footer-note">
+      <button class="icon-btn" onclick="exportPosts()" title="Export posts as JSON" style="width:auto;padding:0 12px;">Export ⬇</button>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ EDITOR MODAL ============ -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <h2 id="modal-title">New Post</h2>
+    <form id="post-form" onsubmit="savePost(event)">
+      <input type="hidden" id="post-id">
+      <div class="field">
+        <label for="post-title-input">Title</label>
+        <input type="text" id="post-title-input" required placeholder="e.g. The 2-Minute Rule That Kills Procrastination">
+      </div>
+      <div class="field">
+        <label for="post-tag-input">Category</label>
+        <select id="post-tag-input">
+          <option>Motivation</option>
+          <option>Psychology</option>
+          <option>Discipline</option>
+          <option>Mindset</option>
+          <option>Habits</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="post-excerpt-input">Short excerpt (shows in the list)</label>
+        <input type="text" id="post-excerpt-input" required placeholder="One punchy sentence that hooks the reader">
+      </div>
+      <div class="field">
+        <label for="post-body-input">Body</label>
+        <textarea id="post-body-input" required placeholder="Write the full post here. Separate paragraphs with a blank line."></textarea>
+        <div class="field-hint">Tip: leave a blank line between paragraphs.</div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeEditor()">Cancel</button>
+        <button type="submit" class="btn-primary">Publish Post</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'forge_posts_v1';
+
+  const seedPosts = [
+    {
+      id: 's1',
+      title: "Stop Waiting To Feel Ready",
+      tag: "Psychology",
+      excerpt: "Motivation doesn't come before action — it's manufactured by it. Here's the loop your brain actually runs on.",
+      date: "2026-06-01",
+      body: `Most people think motivation is a precondition for action. Feel inspired, then act. It's backwards, and it's why so many goals die in the planning stage.\n\nPsychologists call the actual mechanism the "action precedes motivation" principle. Your brain's reward circuitry — specifically dopamine release tied to the striatum — responds to movement and small wins, not to thinking about movement. You don't think your way into motivation. You move your way into it.\n\nThis is why the advice to "just start" isn't a cliché, it's a mechanism. The first two minutes of an unwanted task are the hardest precisely because your brain hasn't yet received the dopamine signal that comes from progress. Once it does, momentum is biological, not just psychological.\n\nThe practical version: stop scheduling motivation. Schedule the first two minutes. Open the document. Put on the shoes. Sit at the desk. The rest of the brain catches up once the body has already started.\n\nWaiting to feel ready is a trap built on a backwards model of how your own mind works. Flip the order, and the resistance loses its grip.`
+    },
+    {
+      id: 's2',
+      title: "Your Comfort Zone Is A Liar",
+      tag: "Mindset",
+      excerpt: "Comfort isn't safety. It's a slow erosion dressed up as peace of mind — and your nervous system can't tell the difference.",
+      date: "2026-06-08",
+      body: `Comfort zones exist because the brain is wired for energy conservation, not growth. Anything unfamiliar gets flagged by the amygdala as a potential threat, triggering the same stress response whether you're facing a wild animal or a hard conversation you've been avoiding.\n\nThe problem is that this threat-detection system doesn't distinguish between danger and discomfort. It just sounds the alarm. Most people interpret that alarm as a signal to retreat — and every retreat reinforces the circuit, making the next attempt feel even more threatening.\n\nThis is called avoidance reinforcement, and it's the single biggest reason comfort zones calcify over time instead of naturally expanding. The zone doesn't stay the same size. It shrinks, every time you listen to the alarm instead of questioning it.\n\nGrowth requires a different relationship with that signal. Not ignoring it — that's recklessness — but recognizing it as data about unfamiliarity, not danger. Ask one question before you retreat: is this actually unsafe, or just unfamiliar? Nine times out of ten, it's the second one.\n\nComfort feels like safety. Often, it's just stagnation wearing safety's clothes.`
+    },
+    {
+      id: 's3',
+      title: "The Discipline Equation Nobody Talks About",
+      tag: "Discipline",
+      excerpt: "Discipline isn't a personality trait. It's a math problem — and most people are solving for the wrong variable.",
+      date: "2026-06-14",
+      body: `People treat discipline like a character trait you either have or don't. That framing is not just wrong, it's actively harmful, because it turns every lapse into evidence of a personal flaw instead of a fixable input.\n\nDiscipline is closer to an equation: friction versus identity. The more friction between you and the action, the more willpower it costs. The stronger your identity around the behavior, the less willpower it requires. Most people try to fix discipline problems by adding more willpower. That's solving for the wrong variable.\n\nReducing friction is mechanical and almost boring: laying out the gym clothes the night before, keeping the guitar out of its case, opening the document before you close the laptop the night before. None of this requires motivation. It requires fifteen seconds of setup that removes the decision point where most plans die.\n\nBuilding identity is slower but more durable. Every time you complete the small version of the action, you're not just making progress on the task — you're casting a vote for the kind of person who does this. Enough votes, and the behavior stops requiring discipline at all. It becomes who you are.\n\nStop trying to want it more. Start making it easier to do and more consistent with who you're becoming. That's the actual equation.`
+    },
+    {
+      id: 's4',
+      title: "One Missed Day Doesn't Break You. This Does.",
+      tag: "Psychology",
+      excerpt: "Missing a workout isn't what kills the habit. The story you tell yourself about it is.",
+      date: "2026-06-20",
+      body: `You miss one gym session, eat one bad meal, skip one morning routine — and somewhere in the next 48 hours, you quit the whole thing entirely. If this has happened to you, you've experienced what behavioral psychologists call the abstinence violation effect, and understanding it is the difference between a bad day and a dead goal.\n\nHere's the mechanism. Most people run their habits on an all-or-nothing script: either you're "on track" or you've "failed." There's no middle setting. So the moment reality interrupts the plan — a missed day, a slip, a bad week — the brain doesn't register it as a minor deviation. It registers it as proof the whole system has collapsed. And once something feels like proof of failure, continuing feels pointless. That's not weak willpower. That's a logical response to a flawed rule.\n\nThe rule itself is the problem, not the missed day. Researchers studying relapse in habit change consistently find that the size of the original slip rarely predicts whether someone abandons the goal entirely. What predicts it is the interpretation of the slip — whether it gets filed as "a data point" or as "evidence I'm not that kind of person."\n\nThe fix isn't more discipline. It's a better rule: a missed day is a single data point, not a verdict. One skipped workout has almost zero effect on a body built over months. One skipped workout treated as proof of failure has total effect — because that's the version that makes you stop.\n\nReplace "I broke my streak" with "I missed one rep in a thousand." Same fact. Completely different next move. The goal was never perfection. It was never supposed to be.`
+    }
+  ];
+
+  function loadPosts(){
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(seedPosts));
+      return [...seedPosts];
+    }
+    try{
+      return JSON.parse(raw);
+    }catch(e){
+      return [...seedPosts];
+    }
+  }
+
+  function savePosts(posts){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+  }
+
+  let posts = loadPosts();
+  let activeFilter = 'All';
+
+  function formatDate(d){
+    const dt = new Date(d + 'T00:00:00');
+    return dt.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+  }
+
+  function renderFilters(){
+    const tags = ['All', ...new Set(posts.map(p => p.tag))];
+    const row = document.getElementById('filter-row');
+    row.innerHTML = tags.map(t =>
+      `<button class="filter-btn ${t===activeFilter?'active':''}" onclick="setFilter('${t}')">${t}</button>`
+    ).join('');
+  }
+
+  function setFilter(tag){
+    activeFilter = tag;
+    renderFilters();
+    renderPosts();
+  }
+
+  function renderPosts(){
+    const list = document.getElementById('post-list');
+    const filtered = activeFilter === 'All' ? posts : posts.filter(p => p.tag === activeFilter);
+    const sorted = [...filtered].sort((a,b) => new Date(b.date) - new Date(a.date));
+
+    if(sorted.length === 0){
+      list.innerHTML = `<div class="empty-state">
+        <p>No posts here yet.</p>
+        <button class="btn-primary" onclick="openEditor()">Write the first one</button>
+      </div>`;
+      return;
+    }
+
+    list.innerHTML = sorted.map((p, i) => `
+      <div class="post-row" onclick="openPost('${p.id}')">
+        <div class="post-num">${String(i+1).padStart(2,'0')}</div>
+        <div>
+          <span class="post-tag">${p.tag}</span>
+          <h3 class="post-title">${escapeHtml(p.title)}</h3>
+          <p class="post-excerpt">${escapeHtml(p.excerpt)}</p>
+        </div>
+        <div class="post-meta">
+          ${formatDate(p.date)}
+          <div class="post-actions" onclick="event.stopPropagation()">
+            <button class="icon-btn" onclick="editPost('${p.id}')" title="Edit">✎</button>
+            <button class="icon-btn" onclick="deletePost('${p.id}')" title="Delete">✕</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function openPost(id){
+    const post = posts.find(p => p.id === id);
+    if(!post) return;
+    const article = document.getElementById('reader-article');
+    const paragraphs = post.body.split(/\n\s*\n/).map(p => `<p>${escapeHtml(p.trim()).replace(/\n/g,'<br>')}</p>`).join('');
+    article.innerHTML = `
+      <span class="reader-tag">${post.tag}</span>
+      <h1>${escapeHtml(post.title)}</h1>
+      <div class="reader-meta">${formatDate(post.date)} &middot; OBSIDIAN</div>
+      <div class="reader-body">${paragraphs}</div>
+    `;
+    document.getElementById('home-view').style.display = 'none';
+    document.getElementById('reader-view').classList.add('active');
+    window.scrollTo(0,0);
+  }
+
+  function showHome(){
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('reader-view').classList.remove('active');
+    window.scrollTo(0,0);
+  }
+
+  function scrollToPosts(){
+    document.getElementById('posts').scrollIntoView({behavior:'smooth'});
+  }
+  function scrollToAbout(){
+    document.getElementById('about').scrollIntoView({behavior:'smooth'});
+  }
+
+  function openEditor(){
+    document.getElementById('modal-title').textContent = 'New Post';
+    document.getElementById('post-form').reset();
+    document.getElementById('post-id').value = '';
+    document.getElementById('modal-overlay').classList.add('active');
+    document.getElementById('post-title-input').focus();
+  }
+
+  function editPost(id){
+    const post = posts.find(p => p.id === id);
+    if(!post) return;
+    document.getElementById('modal-title').textContent = 'Edit Post';
+    document.getElementById('post-id').value = post.id;
+    document.getElementById('post-title-input').value = post.title;
+    document.getElementById('post-tag-input').value = post.tag;
+    document.getElementById('post-excerpt-input').value = post.excerpt;
+    document.getElementById('post-body-input').value = post.body;
+    document.getElementById('modal-overlay').classList.add('active');
+  }
+
+  function closeEditor(){
+    document.getElementById('modal-overlay').classList.remove('active');
+  }
+
+  function savePost(e){
+    e.preventDefault();
+    const id = document.getElementById('post-id').value;
+    const title = document.getElementById('post-title-input').value.trim();
+    const tag = document.getElementById('post-tag-input').value;
+    const excerpt = document.getElementById('post-excerpt-input').value.trim();
+    const body = document.getElementById('post-body-input').value.trim();
+
+    if(id){
+      const idx = posts.findIndex(p => p.id === id);
+      if(idx > -1){
+        posts[idx] = {...posts[idx], title, tag, excerpt, body};
+      }
+    } else {
+      posts.push({
+        id: 'p' + Date.now(),
+        title, tag, excerpt, body,
+        date: new Date().toISOString().slice(0,10)
+      });
+    }
+    savePosts(posts);
+    closeEditor();
+    renderFilters();
+    renderPosts();
+  }
+
+  function deletePost(id){
+    if(!confirm('Delete this post? This cannot be undone.')) return;
+    posts = posts.filter(p => p.id !== id);
+    savePosts(posts);
+    renderFilters();
+    renderPosts();
+  }
+
+  function exportPosts(){
+    const blob = new Blob([JSON.stringify(posts, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'obsidian-posts-backup.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById('modal-overlay').addEventListener('click', (e) => {
+    if(e.target.id === 'modal-overlay') closeEditor();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeEditor();
+  });
+
+  renderFilters();
+  renderPosts();
+</script>
+
+</body>
+</html>
